@@ -8,19 +8,24 @@ const fs = require('fs'); // to manage file system
 const userRouter = express.Router();
 
 userRouter.get("/", async function (req, res, next) {
-  res.send(users);
+  res.status(200).json(users);
 });
 
 
 userRouter.patch("/", async (req, res, next) => {
 
-  users
-    .forEach( user => user.number = randomNumber())
+  try {
+    users
+      .forEach(user => user.number = randomNumber())
 
-  fs.writeFileSync('./src/users.json', JSON.stringify(users));
+    fs.writeFileSync('./src/users.json', JSON.stringify(users));
     // create in another file
 
-  res.send(users);
+    res.status(200).json(users);
+  } catch(err) {
+    res.status(500).json(err.toString());
+  }
+
 })
 
 module.exports = userRouter;
