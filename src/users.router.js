@@ -12,7 +12,7 @@ userRouter.get("/", async function (req, res, next) {
 });
 
 
-userRouter.post("/", async (req, res, next) => {
+userRouter.patch("/", async (req, res, next) => {
 
   users
     .forEach( user => user.number = randomNumber())
